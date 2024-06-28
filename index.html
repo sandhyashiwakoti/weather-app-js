@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <!-- Container -->
+    <div class="container">
+      <!-- Search Bar -->
+      <div id="search-bar">
+        <!-- Search Input -->
+        <input type="text" id="search-input" placeholder="Enter city name" />
+        <!-- Search Button -->
+        <button type="submit" id="search-button">Search</button>
+      </div>
+      <!-- Weather Card -->
+      <div id="weather-card">
+        <!-- Weather Card Header -->
+        <div id="weather-card-header">
+          <h1 id="city-name"></h1>
+          <span id="day"></span></br>
+          <span id="date"></span>
+        </div>
+        <!-- Weather Card Body -->
+        <div class="weather-card-body">
+          <h1 id="temperature"></h1>
+          <img id="weather-icon" />
+          <h2 id="weather-condition"></h2>
+          <h3 id="weather-condition-description"></h3>
+        </div>
+        <!-- Weather Card Footer -->
+        <div class="weather-card-footer">
+          <!-- Weather Card Footer Item -->
+          <div class="weather-card-footer-item">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/10475/10475926.png"
+            />
+            <h3>Pressure</h3>
+            <span id="pressure"></span>
+          </div>
+          <!-- Weather Card Footer Item -->
+          <div class="weather-card-footer-item">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/5532/5532989.png"
+            />
+            <h3>Wind Speed</h3>
+            <span id="wind-speed"></span>
+          </div>
+          <!-- Weather Card Footer Item -->
+          <div class="weather-card-footer-item">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/3437/3437125.png"
+            />
+            <h3>Wind Direction</h3>
+            <span id="wind-direction"></span>
+          </div>
+          <!-- Weather Card Footer Item -->
+          <div class="weather-card-footer-item">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/4148/4148460.png"
+            />
+            <h3>Humidity</h3>
+            <span id="humidity"></span>
+          </div>
+        </div>
+      </div>
+      <!-- Loading Indicator -->
+      <div class="loading">
+        <img src="https://i.gifer.com/ZKZg.gif" />
+      </div>
+      <!-- Error Message -->
+      <div class="error-message"></div>
+      <!-- Toast Message -->
+      <div class="toast-message-container">
+        <div class="toast-message"></div>
+      </div>
+    </div>
+  </body>
+  <!-- Scripts -->
+  <script src="./script.js"></script>
+</html>
