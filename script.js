@@ -47,7 +47,7 @@ const days = [
   "Friday",
   "Saturday",
 ];
-const apiUrl = "http://localhost/weather-prototype3/weather.php";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather";
 const apiId = "628770553edec8791fd2881b449223d4";
 
 /*============ Functions ============*/
@@ -75,25 +75,32 @@ const getFormattedTemperature = (temperature) => {
 
 // Display weather information
 const displayWeatherInformation = (data) => {
-  if (data && data.length > 0) {
-    const dataInfo = data[0];
-    containerElement.style.backgroundImage = `url(${dataInfo.background_image})`;
-    cityNameElement.textContent = dataInfo.city;
-    dayElement.textContent = getDayFromDate(dataInfo.date_time);
-    dateElement.textContent = getFormattedDate(dataInfo.date_time);
-    weatherConditionElement.textContent = dataInfo.weather_condition;
-    weatherConditionDescriptionElement.textContent =
-      dataInfo.weather_description;
-    weatherIconElement.src = dataInfo.weather_icon;
-    temperatureELement.innerHTML =
-      getFormattedTemperature(dataInfo.temperature) + "°C";
-    pressureElement.textContent = dataInfo.pressure + "hPa";
-    humidityElement.textContent = dataInfo.humidity + "%";
-    windSpeedElement.textContent = dataInfo.wind_speed + "m/s";
-    windDirectionElement.innerHTML = dataInfo.wind_direction + "deg";
-    weatherCardElement.style.display = "block";
-  }
+  containerElement.style.backgroundImage = `url(${getBackgroundImage(data.weather[0].id)})`;
+  cityNameElement.textContent = data.name;
+  dayElement.textContent = getDayFromDate(data.dt_txt || new Date());
+  dateElement.textContent = getFormattedDate(data.dt_txt || new Date());
+  weatherConditionElement.textContent = data.weather[0].main;
+  weatherConditionDescriptionElement.textContent = data.weather[0].description;
+  weatherIconElement.src = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`;
+  temperatureELement.innerHTML = getFormattedTemperature(data.main.temp) + "°C";
+  pressureElement.textContent = data.main.pressure + "hPa";
+  humidityElement.textContent = data.main.humidity + "%";
+  windSpeedElement.textContent = data.wind.speed + "m/s";
+  windDirectionElement.innerHTML = data.wind.deg + "deg";
+  weatherCardElement.style.display = "block";
 };
+
+const getBackgroundImage = (weatherId) => {
+  if (weatherId >= 200 && weatherId <= 232) return "https://i.gifer.com/8nKy.gif";
+  if (weatherId >= 300 && weatherId <= 321) return "https://i.gifer.com/IxI.gif";
+  if (weatherId >= 500 && weatherId <= 531) return "https://i.gifer.com/73j6.gif";
+  if (weatherId >= 600 && weatherId <= 622) return "https://i.gifer.com/YWuH.gif";
+  if (weatherId >= 701 && weatherId <= 781) return "https://i.gifer.com/8AC8.gif";
+  if (weatherId >= 801 && weatherId <= 804) return "https://i.gifer.com/srG.gif";
+  if (weatherId === 800) return "https://i.gifer.com/Lx0q.gif";
+  return "https://i.gifer.com/g1vA.gif";
+};
+
 
 const saveCityDataLocally = (city, data) => {
   localStorage.setItem(city.toLowerCase(), JSON.stringify(data));
@@ -117,7 +124,7 @@ const fetchAndDisplayWeatherData = async (city) => {
     }
 
     if (navigator.onLine) {
-      const response = await fetch(`${apiUrl}?q=${city}`);
+const response = await fetch(`${apiUrl}?q=${city}&units=metric&appid=${apiId}`);
 
       if (response.status == 404) {
         errorMessageElement.style.display = "block";
